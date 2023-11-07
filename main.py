@@ -1,4 +1,4 @@
-import sys, servers
+import sys, servers, ping
 
 if len(sys.argv) == 1:
     while True:
@@ -6,7 +6,8 @@ if len(sys.argv) == 1:
         print("1. Voeg een server toe")
         print("2. Verwijder een server")
         print("3. Toon servers")
-        print("4. Stop de toepassing")
+        print("4. Start de scan")
+        print("5. Stop de toepassing")
         keuze = input("Voer het nummer van de gewenste actie in: ")
     
         if keuze == "1":
@@ -16,6 +17,9 @@ if len(sys.argv) == 1:
         elif keuze == "3":
             servers.toon_servers()
         elif keuze == "4":
+            for server in servers.load_file():
+                 ping.report(server["domein"])
+        elif keuze == "5":
             print("Toepassing gestopt.")
             break
         else:
@@ -33,3 +37,6 @@ else:
                  print("Geef als extra optie het domein aub.")
     elif sys.argv[1] == "3":
             servers.toon_servers()
+    elif sys.argv[1] == "4":
+            for server in servers.load_file():
+                 ping.report(server["domein"])
